@@ -26,6 +26,8 @@ class HomeTests(TestCase):
 class BoardTopicsTests(TestCase):
     def setUp(self):
         Board.objects.create(name='Django', description='Django board.')
+        self.homepage_url = reverse('home')
+        self.board_topics_url = reverse('board_topics', kwargs={'pk': 1})
 
     def test_board_topics_view_success_status_code(self):
         url = reverse('board_topics', kwargs={'pk': 1})
@@ -41,11 +43,12 @@ class BoardTopicsTests(TestCase):
         view = resolve('/boards/1/')
         self.assertEquals(view.func, board_topics)
     
-    def test_board_topics_view_contains_link_back_to_homepage(self):
-        board_topics_url = reverse('board_topics', kwargs={'pk': 1})
-        response = self.client.get(board_topics_url)
-        homepage_url = reverse('home')
-        self.assertContains(response, f'href="{homepage_url}"')
+    def test_board_topics_view_contains_navigation_links(self):
+        new_topic_url = reverse('new_topic', kwargs={'pk': 1})
+        response = self.client.get(self.board_topics_url)
+
+        self.assertContains(response, f'href="{self.homepage_url}"')
+        self.assertContains(response, f'href="{new_topic_url}"')
 
 class NewTopicTests(TestCase):
     def setUp(self):
