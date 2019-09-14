@@ -2,7 +2,8 @@ from django.test import TestCase
 from django.urls import reverse
 from django.urls import resolve
 from .views import home, board_topics, new_topic
-from .models import Board
+from .models import Board, Topic, Post
+from django.contrib.auth.models import User
 
 # Create your tests here.
 
@@ -53,7 +54,7 @@ class BoardTopicsTests(TestCase):
 class NewTopicTests(TestCase):
     def setUp(self):
         Board.objects.create(name='Django', description='Django board.')
-        User.objects.create_user(username='john', email='john@doe.com', password='123')  # <- included this line here
+        User.objects.create_user(username='john', email='john@doe.com', password='123')
 
     def test_new_topic_view_success_status_code(self):
         url = reverse('new_topic', kwargs={'pk': 1})
