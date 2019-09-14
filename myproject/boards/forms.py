@@ -3,7 +3,8 @@ from .models import Topic
 
 class NewTopicForm(forms.ModelForm):
     message = forms.CharField(widget=forms.Textarea(), max_length=4000)
+    additional_info = forms.CharField(widget=forms.Textarea(), max_length=4000)
 
     class Meta():
         model = Topic
-        fields = ['subject', 'message']
+        fields = ['subject', 'message', 'additional_info']
