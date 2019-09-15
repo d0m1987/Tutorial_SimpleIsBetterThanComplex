@@ -1,9 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.urls import resolve
-from .views import home, board_topics, new_topic
-from .models import Board, Topic, Post
-from .forms import NewTopicForm
+from ..views import home, board_topics, new_topic
+from ..models import Board, Topic, Post
+from ..forms import NewTopicForm
 from django.contrib.auth.models import User
 
 # Create your tests here.
